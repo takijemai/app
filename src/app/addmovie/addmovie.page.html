@@ -20,6 +20,14 @@
             <ion-label position="floating" color="primary"> URL de la imagen: </ion-label>
             <ion-input type="text"></ion-input>
         </ion-item>
+        <div>
+            <img alt="Photo" [src]="photo">
+            <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+                <ion-fab-button (click)="takePicture()">
+                    <ion-icon name="camera"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+        </div>
         <div class="div-button-create">
             <ion-button type="submit">
                 Crear Pelicula
