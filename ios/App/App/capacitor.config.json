@@ -1,0 +1,6 @@
+{
+	"appId": "jt800.ual.es",
+	"appName": "app",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

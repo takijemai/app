@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-title text-center>Registro</ion-title>
+        <ion-back-button></ion-back-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <img class="icon" src="../../assets/icon/register.jpg" alt="">
+    <form [formGroup]="formValidation">
+        <ion-item>
+            <ion-label position="floating"> Correo electrónico</ion-label>
+            <ion-input type="text" formControlName="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating"> Contraseña</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+
+        <br>
+        <ion-button color="secondary" expand="block" (click)="OnSubmitRegister(formValidation.value)" [disabled]="!formValidation.valid">Registrarse</ion-button>
+        <br>
+        <ion-button color="success" expand="block" routerLink="/login" [disabled]="!formValidation.valid">Cuenta existen</ion-button>
+    </form>
+</ion-content>

@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{title}}</ion-title>
+        <ion-back-button></ion-back-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>{{data.Title}}</ion-card-title>
+            <ion-card-subtitle>{{data.Year}}</ion-card-subtitle>
+            <p>{{data.Genre}}</p>
+            <p>{{data.Actors}}</p>
+        </ion-card-header>
+        <ion-card-content>
+            <img [src]="image" alt="">
+        </ion-card-content>
+
+    </ion-card>
+</ion-content>

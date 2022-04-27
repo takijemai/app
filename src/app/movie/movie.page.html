@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar color="tertiary">
+        <ion-buttons slot="end">
+            <ion-button [routerLink]="['/addmovie']">
+                <ion-icon slot="icon-only" name="add"></ion-icon>
+            </ion-button>
+            <ion-button (click)="logout()">
+                <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            Movies Search
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-searchbar [(ngModel)]="pelicula"></ion-searchbar>
+    <ion-button class="medium" (click)="search()">Búsqueda</ion-button>
+    <ion-card *ngFor="let item of (result | async)" [routerLink]="['../', 'moviedetails', item.imdbID]">
+
+        <ion-card-header>
+            <ion-button color="success">
+                <ion-icon slot="icon-only" name="add"></ion-icon>
+            </ion-button>
+            <ion-card-title>{{item.Title}}</ion-card-title>
+            <ion-card-subtitle>{{item.Year}}</ion-card-subtitle>
+
+        </ion-card-header>
+        <ion-card-content>
+            <img src="{{item.Poster}}" alt="">
+        </ion-card-content>
+
+    </ion-card>
+
+    <ion-footer>
+        <ion-toolbar>
+            <ion-title></ion-title>
+        </ion-toolbar>
+    </ion-footer>
+</ion-content>

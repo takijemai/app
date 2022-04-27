@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">app</string>
+    <string name="title_activity_main">app</string>
+    <string name="package_name">jt800.ual.es</string>
+    <string name="custom_url_scheme">jt800.ual.es</string>
+</resources>
