@@ -9,33 +9,27 @@
             </ion-button>
         </ion-buttons>
         <ion-title>
-            Movies Search
+            Movies List
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-searchbar [(ngModel)]="pelicula"></ion-searchbar>
-    <ion-button class="medium" (click)="search()">Búsqueda</ion-button>
-    <ion-card *ngFor="let item of (result | async)" [routerLink]="['../', 'moviedetails', item.imdbID]">
+<ion-content *ngIf="items" class="list-mini-content" padding>
+    <div *ngIf="items.length > 0" class="list-mini">
+        <ion-list>
+            <ion-item *ngFor="let item of items">
+                <ion-thumbnail slot="start">
+                    <img alt="" [src]="item.payload.doc.data().image">
+                </ion-thumbnail>
+                <ion-label>{{item.payload.doc.data().name}}</ion-label>
+                <ion-button fill="clear" slot="end" [routerLink]="['/details',item.payload.doc.id]">Ver detalle</ion-button>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div class="empty-list" *ngIf="items.length === 0">
+        <p>No tiene ningún pelicula en la lista.</p>
+    </div>
 
-        <ion-card-header>
-            <ion-button color="success">
-                <ion-icon slot="icon-only" name="add"></ion-icon>
-            </ion-button>
-            <ion-card-title>{{item.Title}}</ion-card-title>
-            <ion-card-subtitle>{{item.Year}}</ion-card-subtitle>
 
-        </ion-card-header>
-        <ion-card-content>
-            <img src="{{item.Poster}}" alt="">
-        </ion-card-content>
 
-    </ion-card>
-
-    <ion-footer>
-        <ion-toolbar>
-            <ion-title></ion-title>
-        </ion-toolbar>
-    </ion-footer>
 </ion-content>

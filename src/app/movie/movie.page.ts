@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 import { AuthService } from '../services/auth.service';
 import { PeliculaserviceService } from '../services/peliculaservice.service';
-import { Observable } from 'rxjs';
+
 
 
 
@@ -13,26 +14,72 @@ import { Observable } from 'rxjs';
   styleUrls: ['./movie.page.scss'],
 })
 export class MoviePage implements OnInit {
-  pelicula: string;
-  data: string;
-  result: Observable<any>;
+  items: Array<any>;
 
-  constructor( private authservice: AuthService,private router: Router,
-    private peliculaservice: PeliculaserviceService, private route: ActivatedRoute) { }
+  constructor(private authservice: AuthService, private router: Router,
+    private peliculaservice: PeliculaserviceService, private route: ActivatedRoute,
+    public loadingCtrl: LoadingController,) { }
 
   ngOnInit() {
+    if (this.route && this.route.data) {
+      this.getData();
+    }
   }
 
-  logout(){
+
+  async getData() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Por favor, espere...'
+    });
+    this.presentLoading(loading);
+    this.route.data.subscribe(routeData => {
+      routeData['data'].subscribe(data => {
+        loading.dismiss();
+        this.items = data;
+      });
+    });
+  }
+async presentLoading(loading) {
+  return await loading.present();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  logout() {
     this.router.navigate(['/home']);
 
   }
 
 
-    search(): void{
 
-      this.result = this.peliculaservice.searchMovie(this.pelicula);
-}
+
+
+
+
+
+
 
 
 

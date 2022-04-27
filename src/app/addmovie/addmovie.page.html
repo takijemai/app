@@ -7,6 +7,25 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
+    <div>
+        <ion-searchbar [(ngModel)]="pelicula"></ion-searchbar>
+        <ion-button class="medium" (click)="search()">Búsqueda</ion-button>
+        <ion-card *ngFor="let item of (result | async)">
+
+            <ion-card-header>
+                <ion-button color="success">
+                    <ion-icon slot="icon-only" name="add" (click)="addmovie()"></ion-icon>
+                </ion-button>
+                <ion-card-title>{{item.Title}}</ion-card-title>
+                <ion-card-subtitle>{{item.Year}}</ion-card-subtitle>
+
+            </ion-card-header>
+            <ion-card-content [routerLink]="['../', 'moviedetails', item.imdbID]">
+                <img src="{{item.Poster}}" alt="">
+            </ion-card-content>
+
+        </ion-card>
+    </div>
     <form class="form">
         <ion-item>
             <ion-label position="floating" color="primary">Title:</ion-label>
@@ -20,18 +39,11 @@
             <ion-label position="floating" color="primary"> URL de la imagen: </ion-label>
             <ion-input type="text"></ion-input>
         </ion-item>
-        <div>
-            <img alt="Photo" [src]="photo">
-            <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-                <ion-fab-button (click)="takePicture()">
-                    <ion-icon name="camera"></ion-icon>
-                </ion-fab-button>
-            </ion-fab>
-        </div>
         <div class="div-button-create">
-            <ion-button type="submit">
-                Crear Pelicula
-            </ion-button>
+
+            <ion-button color="secondary" (click)="takePicture()">Tomar foto</ion-button>
+            <br>
+            <ion-button type="submit" color="success"> Crear Pelicula </ion-button>
         </div>
     </form>
 </ion-content>
