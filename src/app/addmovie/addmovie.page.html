@@ -13,8 +13,8 @@
         <ion-card *ngFor="let item of (result | async)">
 
             <ion-card-header>
-                <ion-button color="success">
-                    <ion-icon slot="icon-only" name="add" (click)="addmovie()"></ion-icon>
+                <ion-button color="success" (click)="addmovie(item)">
+                    Add
                 </ion-button>
                 <ion-card-title>{{item.Title}}</ion-card-title>
                 <ion-card-subtitle>{{item.Year}}</ion-card-subtitle>

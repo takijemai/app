@@ -5,6 +5,8 @@ import { Camera, CameraResultType } from '@capacitor/camera';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { PeliculaserviceService } from '../services/peliculaservice.service';
+import { DbService } from '../services/db.service';
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-addmovie',
   templateUrl: './addmovie.page.html',
@@ -13,10 +15,12 @@ import { PeliculaserviceService } from '../services/peliculaservice.service';
 export class AddmoviePage implements OnInit {
   photo: SafeResourceUrl;
   pelicula: string;
-  data: string;
+
   result: Observable<any>;
+
   constructor(private sanitizer: DomSanitizer, private peliculaservice: PeliculaserviceService, private route: ActivatedRoute
-   ,private authservice: AuthService,private router: Router,) { }
+    , private authservice: AuthService, private router: Router, private dbservice: DbService,
+  private alertCtrl: AlertController) { }
 
   ngOnInit() {
   }
@@ -26,9 +30,43 @@ export class AddmoviePage implements OnInit {
       this.result = this.peliculaservice.searchMovie(this.pelicula);
 }
 
-addmovie() {
 
+
+async addmovie(item){
+
+const alert = await this.alertCtrl.create({
+header:'Confirming add',
+mode:'ios',
+message:'are you sure to add pelicula',
+buttons: [
+  {
+    text: 'no',
+    role:'cancel'
+  },
+  {
+    text: 'yes',
+    handler : ()=>{
+      console.log('add pelicula');
+      let data: {
+
+      };
+      this.dbservice.createMovie(item).then(res=>{
+        console.log('pelicula anadida');
+         // this.router.navigate(['/movie']);
+      });
+
+  }
+
+
+  }
+]
+});
+
+await alert.present();
 }
+
+
+
 
 
 

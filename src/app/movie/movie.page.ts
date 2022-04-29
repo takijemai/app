@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 import { AuthService } from '../services/auth.service';
+import { DbService } from '../services/db.service';
 import { PeliculaserviceService } from '../services/peliculaservice.service';
 
 
@@ -18,7 +19,7 @@ export class MoviePage implements OnInit {
 
   constructor(private authservice: AuthService, private router: Router,
     private peliculaservice: PeliculaserviceService, private route: ActivatedRoute,
-    public loadingCtrl: LoadingController,) { }
+    public loadingCtrl: LoadingController,private alertCtrl: AlertController,private dbservice: DbService,) { }
 
   ngOnInit() {
     if (this.route && this.route.data) {
@@ -44,6 +45,36 @@ async presentLoading(loading) {
   }
 
 
+
+async delete(id: any){
+
+const alert = await this.alertCtrl.create({
+header:'Confirming delete',
+mode:'ios',
+message:'are you sure to delete',
+buttons: [
+  {
+    text: 'no',
+    role:'cancel'
+  },
+  {
+    text: 'yes',
+    handler : ()=>{
+      console.log('delete pelicula');
+      this.dbservice.deleteMovie(id).then(res=>{
+        console.log('pelicula eleminada');
+
+      });
+      //this.items.splice(id,1);
+  }
+
+
+  }
+]
+});
+
+await alert.present();
+}
 
 
 

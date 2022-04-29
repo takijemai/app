@@ -19,10 +19,13 @@
         <ion-list>
             <ion-item *ngFor="let item of items">
                 <ion-thumbnail slot="start">
-                    <img alt="" [src]="item.payload.doc.data().image">
+                    <img alt="" [src]="item.payload.doc.data().Poster">
                 </ion-thumbnail>
-                <ion-label>{{item.payload.doc.data().name}}</ion-label>
-                <ion-button fill="clear" slot="end" [routerLink]="['/details',item.payload.doc.id]">Ver detalle</ion-button>
+                <ion-label>{{item.payload.doc.data().Title}}</ion-label>
+                <ion-button fill="clear" slot="end" [routerLink]="['../', 'moviedetails', item.payload.doc.data().imdbID]">Ver detalle</ion-button>
+                <ion-button fill="clear" (click)="delete(item.payload.doc.data().imdbID)" color="danger" slot="end">
+                    <ion-icon name="trash" slot="icon-only"></ion-icon>
+                </ion-button>
             </ion-item>
         </ion-list>
     </div>

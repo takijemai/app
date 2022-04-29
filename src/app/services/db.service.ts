@@ -40,13 +40,7 @@ getMovie(movieId){
   createMovie(value){
     return new Promise<any>((resolve, reject) => {
       const user = JSON.parse(localStorage.getItem('user'));
-      this.afs.collection('users').doc(user.uid).collection('movies').add({
-        title: value.title,
-        year: value.year,
-        image: value.image,
-        actors: value.actors,
-        genre: value.genre
-      })
+      this.afs.collection('users').doc(user.uid).collection('movies').add(value)
         .then(
           res => resolve(res),
           err => reject(err)
@@ -65,10 +59,10 @@ getMovie(movieId){
     });
   }
 
-deleteMovie(movieKey){
+deleteMovie(movieID){
   return new Promise<any>((resolve, reject) => {
     const user = JSON.parse(localStorage.getItem('user'));
-    this.afs.collection('users').doc(user.uid).collection('movies').doc(movieKey).
+    this.afs.collection('users').doc(user.uid).collection('movies').doc(movieID).
       delete()
       .then(
         res => resolve(res),
