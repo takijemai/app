@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { StorageserviceService } from './storageservice.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DbService {
+  url: string;
 private snapshotChangesSubscription: any;
-  constructor(public afs: AngularFirestore,public afAuth: AngularFireAuth) { }
+  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth,
+    private storage: AngularFireStorage,private storageService: StorageserviceService) { }
 
 getMovies(){
 return new Promise<any>((resolve, reject) => {
@@ -59,10 +63,10 @@ getMovie(movieId){
     });
   }
 
-deleteMovie(movieID){
+deleteMovie(id: string){
   return new Promise<any>((resolve, reject) => {
     const user = JSON.parse(localStorage.getItem('user'));
-    this.afs.collection('users').doc(user.uid).collection('movies').doc(movieID).
+    this.afs.collection('users').doc(user.uid).collection('movies').doc(id).
       delete()
       .then(
         res => resolve(res),
@@ -75,6 +79,14 @@ unsubscribeOnLogOut(){
   this.snapshotChangesSubscription.unsubscribe();
   }
 
+savePhotoFirebase(uid: string, imageBase64: string, srcImage?: string) {
+    const date = new Date();
+    if (imageBase64) {
+      const idPhoto =
+        uid + date.getHours() + date.getMinutes() + date.getSeconds();
+      return this.storageService.uploadFile(idPhoto, imageBase64);
+    }
+  }
 
 
 

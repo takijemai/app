@@ -3,13 +3,13 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="movie"></ion-back-button>
         </ion-buttons>
-        <ion-title>Nueva Pelicula</ion-title>
+        <ion-title>New Movie</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
     <div>
         <ion-searchbar [(ngModel)]="pelicula"></ion-searchbar>
-        <ion-button class="medium" (click)="search()">Búsqueda</ion-button>
+        <ion-button class="medium" (click)="search()">Search</ion-button>
         <ion-card *ngFor="let item of (result | async)">
 
             <ion-card-header>
@@ -26,24 +26,60 @@
 
         </ion-card>
     </div>
-    <form class="form">
-        <ion-item>
-            <ion-label position="floating" color="primary">Title:</ion-label>
-            <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating" color="primary">Year: </ion-label>
-            <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating" color="primary"> URL de la imagen: </ion-label>
-            <ion-input type="text"></ion-input>
-        </ion-item>
-        <div class="div-button-create">
 
-            <ion-button color="secondary" (click)="takePicture()">Tomar foto</ion-button>
-            <br>
-            <ion-button type="submit" color="success"> Crear Pelicula </ion-button>
+    <form class="form" [formGroup]="formValidation" (ngSubmit)="onSubmit(formValidation.value)">
+        <div>
+            <ion-row class="center">
+                <ion-col size="12">
+                    <img [src]="url" width="200" height="200" *ngIf="!photo && url" />
+                    <img src="../../assets/img/movie.jpg" width="200" height="200" *ngIf="!photo && !url" />
+                    <img [src]="photo" #image width="200" height="200" *ngIf="photo" />
+                </ion-col>
+
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="12" class="center">
+                    <ion-button color="secondary" (click)="takePicture()">
+                        Upload Image
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item lines="full">
+                        <ion-label position="floating">Title:</ion-label>
+                        <ion-input type="text" formControlName="title"></ion-input>
+                    </ion-item>
+
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item lines="full">
+                        <ion-label position="floating">Year:</ion-label>
+                        <ion-input type="text" formControlName="year"></ion-input>
+                    </ion-item>
+
+                </ion-col>
+            </ion-row>
         </div>
+        <div>
+            <ion-card *ngIf="photo && geolocation">
+                <ion-card-header>
+                    <ion-card-title>Coordinates
+                        <</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+
+                    <ion-item>Latitude: {{ latitude }}</ion-item>
+                    <ion-item>Longitude: {{ longitude }}</ion-item>
+                    <ion-item>Accuracy: {{ accuracy }}</ion-item>
+                </ion-card-content>
+            </ion-card>
+        </div>
+
+        <ion-button type="submit" color="success" expand="block" [disabled]="!formValidation.valid"> Creat New Movie </ion-button>
+
     </form>
 </ion-content>

@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-
 import { AuthService } from '../services/auth.service';
 import { DbService } from '../services/db.service';
 import { PeliculaserviceService } from '../services/peliculaservice.service';
-
-
-
 
 @Component({
   selector: 'app-movie',
@@ -75,28 +71,6 @@ buttons: [
 
 await alert.present();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   logout() {
     this.router.navigate(['/home']);

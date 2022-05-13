@@ -12,7 +12,6 @@
 
 <ion-content>
     <ion-searchbar [(ngModel)]="pelicula" (click)="search()"></ion-searchbar>
-    <!-- <ion-button class="medium">Búsqueda</ion-button> -->
     <ion-card *ngFor="let item of (result | async)" [routerLink]="['../', 'moviedetails', item.imdbID]">
         <ion-card-header>
             <ion-card-title>{{item.Title}}</ion-card-title>
@@ -23,4 +22,19 @@
             <img src="{{item.Poster}}" alt="">
         </ion-card-content>
     </ion-card>
+    <div *ngIf="!pelicula">
+        <ion-card *ngFor="let item of movies  ">
+
+            <ion-card-header>
+                <ion-card-subtitle> </ion-card-subtitle>
+                <ion-card-title color="primary" [routerLink]="['../', 'moviedetails', item.imdbID]"> {{item.Title}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-label> {{item.Year}}</ion-label>
+                <img src="{{item.Poster}}" alt="">
+
+            </ion-card-content>
+
+        </ion-card>
+    </div>
 </ion-content>
