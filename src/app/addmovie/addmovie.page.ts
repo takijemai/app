@@ -34,6 +34,11 @@ formValidation: FormGroup;
     , private authservice: AuthService, private router: Router, private dbservice: DbService,
     private alertCtrl: AlertController, private formBuilder: FormBuilder, private geolocationservice: GeolocationService,
   private imageService: ImageserviceService, private storageservice: StorageserviceService) {
+
+   }
+
+  ngOnInit() {
+    this.resetFields();
     this.geolocation = this.geolocationservice.getLocation();
     this.geolocation.then(res=>{
       this.data = res;
@@ -42,10 +47,6 @@ formValidation: FormGroup;
       this.accuracy = res.accuracy;
 
     });
-   }
-
-  ngOnInit() {
-    this.resetFields();
   }
 
 resetFields(){
