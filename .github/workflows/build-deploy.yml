@@ -24,7 +24,7 @@ jobs:
           npm install
           npm run-script deploy
       - name: Deploy
-        uses: uses: JamesIves/github-pages-deploy-action@v4.2.5
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
