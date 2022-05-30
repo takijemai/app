@@ -10,8 +10,8 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "test-jenkins": "jest --reporters=default --reporters=jest-junit",
-        "coverage-jenkins": "jest --reporters=default --reporters=jest-junit --coverage --coverageReporters=text --coverageReporters=html --coverageDirectory=./coverage/"
+        "deploy": "ng build --prod --base-href=/app/"
+
 
 
     },
