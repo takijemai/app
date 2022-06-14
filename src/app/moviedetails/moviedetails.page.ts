@@ -14,7 +14,7 @@ export class MoviedetailsPage implements OnInit {
   actors: string;
   idp: string;
   pelicula: string;
-  data: any[] = [];
+  data: any[] ;
 
   constructor(private route: ActivatedRoute,public peliculaservice: PeliculaserviceService) { }
 
